@@ -1,0 +1,18 @@
+code 
+
+ieducations_h1 = case_ieducations_dataset.loc[(case_ieducations_dataset["DS_CATEGORIA_ADMINISTRATIVA"].isin([1,2])) 
+                                              & (case_ieducations_dataset["DS_ORGANIZACAO_ACADEMICA"] == 2)]
+ieducations_h1 = ieducations_h1["VL_DES_PESQUISA"].values / 1e-8
+ieducations_h1 = ((ieducations_h1 - ieducations_h1.min())/ ieducations_h1.max()) * 100
+
+ref_vals = case_ieducations_dataset["VL_DES_PESQUISA"].values / 1e-8
+ref_vals = ((ref_vals - ref_vals.min())/ ref_vals.max()) * 100
+
+plt.figure(figsize=(8, 8))
+
+plt.plot(ref_vals, "c*")
+
+plt.plot(ieducations_h1, "r,")
+plt.plot(ieducations_h1, "g--")
+
+plt.show()
