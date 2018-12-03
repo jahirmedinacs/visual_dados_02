@@ -1,0 +1,826 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Diabetes Visualization}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Visualização de séries temporais da diabetes insulino
+dependente (Tipo
+I)}\label{visualizauxe7uxe3o-de-suxe9ries-temporais-da-diabetes-insulino-dependente-tipo-i}
+
+\subsubsection{Autores}\label{autores}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Nícolas Bassetto Leite}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{\emph{\#USP 8937292}}
+  \end{itemize}
+\item
+  \textbf{Jahir Gilberth Medina Lopez}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{\emph{\#USP 10659682}}
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+         
+         \PY{k+kn}{from} \PY{n+nn}{pprint} \PY{k}{import} \PY{n}{pprint} \PY{k}{as} \PY{n}{pprint}
+         \PY{k+kn}{from} \PY{n+nn}{copy} \PY{k}{import} \PY{n}{copy} \PY{k}{as} \PY{n}{copy}
+         
+         
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{k+kn}{import} \PY{n+nn}{sys}
+         
+         \PY{k+kn}{import} \PY{n+nn}{re}
+         
+         \PY{k+kn}{import} \PY{n+nn}{plotly} \PY{k}{as} \PY{n+nn}{ply}
+         \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{plotly} \PY{k}{as} \PY{n+nn}{py}
+         \PY{k+kn}{import} \PY{n+nn}{cufflinks} \PY{k}{as} \PY{n+nn}{cf}
+         
+         \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+         
+         \PY{n}{ply}\PY{o}{.}\PY{n}{tools}\PY{o}{.}\PY{n}{set\PYZus{}credentials\PYZus{}file}\PY{p}{(}\PY{n}{username}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jm\PYZus{}plot\PYZus{}util}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{api\PYZus{}key}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{6PmrqjEQP2NhZxtti2mv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{N\PYZus{}SAMPLES} \PY{o}{=} \PY{l+m+mi}{70}
+         
+         \PY{k}{class} \PY{n+nc}{color}\PY{p}{:}
+            \PY{n}{PURPLE} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[95m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{CYAN} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[96m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{DARKCYAN} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[36m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{BLUE} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[94m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{GREEN} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[92m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{YELLOW} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[93m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{RED} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[91m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{BOLD} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{UNDERLINE} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[4m}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{END} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{index\PYZus{}vals} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{files\PYZus{}name} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{n}{N\PYZus{}SAMPLES}
+        \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}csv\PYZus{}}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{ii}\PY{p}{:}
+                \PY{n}{index\PYZus{}vals} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{ii}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+                \PY{n}{files\PYZus{}name}\PY{p}{[}\PY{n}{index\PYZus{}vals}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{ii}
+        
+        \PY{n}{index\PYZus{}vals}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{dataframe\PYZus{}container} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}SAMPLES}\PY{p}{)}\PY{p}{:}
+            \PY{n}{temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{files\PYZus{}name}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,}\PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf\PYZhy{}8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+            \PY{n}{temp}\PY{o}{.}\PY{n}{Time} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{temp}\PY{o}{.}\PY{n}{Time}\PY{p}{)}
+            \PY{n}{dataframe\PYZus{}container} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{temp}\PY{p}{]}
+\end{Verbatim}
+
+
+    \section{1.- Verificando o intervalo de séries
+temporais}\label{verificando-o-intervalo-de-suxe9ries-temporais}
+
+como pode ser visto abaixo, as séries temporais têm intervalos muito
+diferentes entre elas, por isso, escolhemos tratar cada "observação"
+(neste caso: os pacientes), como se fosse um conjunto de dados ideal.
+
+na visualização gerada abaixo, as linhas verde e amarela são a média e a
+mediana, respectivamente; então, é possível chegar à conclusão
+definitiva de que os intervalos são muito diferentes uns dos outros
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{time\PYZus{}span} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N\PYZus{}SAMPLES}\PY{p}{)}
+        \PY{n}{id\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{df\PYZus{}ref} \PY{o+ow}{in} \PY{n}{dataframe\PYZus{}container}\PY{p}{:}
+            \PY{n}{temp\PYZus{}\PYZus{}} \PY{o}{=} \PY{n}{df\PYZus{}ref}\PY{o}{.}\PY{n}{Time}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{df\PYZus{}ref}\PY{o}{.}\PY{n}{Time}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+            \PY{n}{time\PYZus{}span}\PY{p}{[}\PY{n}{id\PYZus{}x}\PY{p}{]} \PY{o}{=} \PY{n}{temp\PYZus{}\PYZus{}}\PY{o}{.}\PY{n}{days}
+            \PY{n}{id\PYZus{}x} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{time\PYZus{}span}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{or}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Days of Samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{time\PYZus{}span}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}k}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{N\PYZus{}SAMPLES}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{time\PYZus{}span}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{N\PYZus{}SAMPLES}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{time\PYZus{}span}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Days}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Paciente}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{legend}\PY{o}{.}\PY{n}{get\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}def5f9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Lembrando que esta materia acadêmica é orientada para visualização de
+dados, então não é obrigatório processá-los, mesmo quando necessário
+para garantir uma representação visual correta, portanto, se os
+pacientes tiverem menos de 100 dias de registro, pode ser considerado
+bom o suficiente para ter uma visualização "correta".
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{id\PYZus{}to\PYZus{}use} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{time\PYZus{}span} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{} d}\PY{l+s+s2}{os pacientes a usar (muestras por dia \PYZlt{}= 100)}
+        \PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{} d}\PY{l+s+s2}{os pacientes nao se usaram (muestras por dia \PYZgt{} 100)}
+        \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+            \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{id\PYZus{}to\PYZus{}use}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{time\PYZus{}span}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{,}
+            \PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{time\PYZus{}span}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{id\PYZus{}to\PYZus{}use}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{time\PYZus{}span}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+81.4286 \% dos pacientes a usar (muestras por dia <= 100)
+18.5714 \% dos pacientes nao se usaram (muestras por dia > 100)
+
+
+    \end{Verbatim}
+
+    se essa abordagem não oferecer a melhor visualização, a quantidade de
+amostras de pacientes deixados pode ser "reduzida", mas se não, o
+processo de visualização permaneceria o mesmo.
+
+É importante lembrar que, no caso de ser necessário, um
+pré-pré-processamento pequeno poderia ser aplicado
+
+\section{2.- Eligendo os tipos de Plot e as
+tecnicas}\label{eligendo-os-tipos-de-plot-e-as-tecnicas}
+
+Cada uma das amostras (pacientes) registrou eventos em momentos
+específicos, onde cada código tem um evento (listado abaixo) e um valor
+(também listado, mas dentro de cada amostra)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{code\PYZus{}names} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./code\PYZus{}names.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{code\PYZus{}names}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+    code                                     names
+0     33                      Regular insulin dose
+1     34                          NPH insulin dose
+2     35                   UltraLente insulin dose
+3     48     Unspecified blood glucose measurement
+4     57     Unspecified blood glucose measurement
+5     58   Pre-breakfast blood glucose measurement
+6     59  Post-breakfast blood glucose measurement
+7     60       Pre-lunch blood glucose measurement
+8     61      Post-lunch blood glucose measurement
+9     62      Pre-supper blood glucose measurement
+10    63     Post-supper blood glucose measurement
+11    64       Pre-snack blood glucose measurement
+12    65                     Hypoglycemic symptoms
+13    66                    Typical meal ingestion
+14    67            More-than-usual meal ingestion
+15    68            Less-than-usual meal ingestion
+16    69                 Typical exercise activity
+17    70         More-than-usual exercise activity
+18    71         Less-than-usual exercise activity
+19    72                 Unspecified special event
+    \end{verbatim}
+
+    
+    Temos 4 tipos principais de códigos, que são a \textbf{\emph{quantidade
+da glicose, quantidade de exercício, quantidade de insulina (e tipo), e
+a quantidade de alimento ingerido}}, além de outros códigos que não
+podem ser agrupados com eles, eles são: \textbf{\emph{sintomas
+hipoglicêmicos e outros eventos não especificados}}
+
+Assim, neste caso, optamos por plotar apenas o grupo principal entre
+eles, o tipo de insulina e a medida. Todas as amostras têm índice de
+tempo, ou seja, todas as amostras são séries temporais, nesta
+consideração, todas as visualizações serão orientadas no análise dos
+dados considerando o tempo como um fator principal.
+
+(o código abaixo gera amostras onde são agrupadas por seu tipo de grupo,
+listado acima)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{glucose\PYZus{}cod} \PY{o}{=} \PY{p}{\PYZob{}}
+        \PY{l+m+mi}{58}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pre\PYZhy{}breakfast}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{59}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Post\PYZhy{}breakfast}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{60}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pre\PYZhy{}lunch}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{61}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Post\PYZhy{}lunch}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{62}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pre\PYZhy{}supper}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{63}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Post\PYZhy{}supper}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{64}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pre\PYZhy{}snack}\PY{l+s+s2}{\PYZdq{}}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{n}{exercise\PYZus{}cod} \PY{o}{=} \PY{p}{\PYZob{}}
+        \PY{l+m+mi}{69}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Typical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+m+mi}{70}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{More\PYZhy{}than\PYZhy{}usual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+m+mi}{71}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Less\PYZhy{}than\PYZhy{}usual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{insuline\PYZus{}cod} \PY{o}{=} \PY{p}{\PYZob{}}
+        \PY{l+m+mi}{33}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Regular}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{34}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NPH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{35}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{UltraLente}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{meal\PYZus{}cod} \PY{o}{=} \PY{p}{\PYZob{}}
+        \PY{l+m+mi}{66}\PY{p}{:}	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Typica}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{67}\PY{p}{:}	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{More\PYZhy{}than\PYZhy{}usual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{68}\PY{p}{:}	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Less\PYZhy{}than\PYZhy{}usual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{others\PYZus{}codes} \PY{o}{=} \PY{p}{\PYZob{}}
+        \PY{l+m+mi}{48}\PY{p}{:}	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unspecified blood glucose measurement}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{57}\PY{p}{:}	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unspecified blood glucose measurement}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{65}\PY{p}{:}	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hypoglycemic symptoms}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{l+m+mi}{72}\PY{p}{:}	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unspecified special event}\PY{l+s+s2}{\PYZdq{}}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{convert\PYZus{}codes\PYZus{}by\PYZus{}dict}\PY{p}{(}\PY{n}{input\PYZus{}df}\PY{p}{,} \PY{n}{dict\PYZus{}cod}\PY{p}{)}\PY{p}{:}
+            \PY{n}{output} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+            \PY{n}{output}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{input\PYZus{}df}\PY{o}{.}\PY{n}{Time}
+        
+            \PY{k}{for} \PY{n}{code}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n}{dict\PYZus{}cod}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{n}{output}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{input\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+        
+                \PY{n}{temp\PYZus{}} \PY{o}{=} \PY{n}{input\PYZus{}df}\PY{p}{[}\PY{n}{input\PYZus{}df}\PY{o}{.}\PY{n}{Code} \PY{o}{==} \PY{n}{code}\PY{p}{]}
+                \PY{n}{output}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{temp\PYZus{}}\PY{o}{.}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n}{temp\PYZus{}}\PY{o}{.}\PY{n}{Value}
+        
+            \PY{n}{output}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{output}\PY{o}{.}\PY{n}{Time}
+            \PY{n}{output}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{k}{return} \PY{n}{output}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{list\PYZus{}of\PYZus{}dict} \PY{o}{=} \PY{p}{[}\PY{n}{glucose\PYZus{}cod}\PY{p}{,} \PY{n}{exercise\PYZus{}cod}\PY{p}{,} \PY{n}{insuline\PYZus{}cod}\PY{p}{,} \PY{n}{meal\PYZus{}cod}\PY{p}{,} \PY{n}{others\PYZus{}codes}\PY{p}{]}
+        
+        \PY{n}{cases\PYZus{}plot\PYZus{}ready} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n}{id\PYZus{}to\PYZus{}use}\PY{p}{:}
+            \PY{n}{temp} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{list\PYZus{}of\PYZus{}dict}\PY{p}{)}
+            \PY{k}{for} \PY{n}{jj} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{list\PYZus{}of\PYZus{}dict}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{carry} \PY{o}{=} \PY{n}{convert\PYZus{}codes\PYZus{}by\PYZus{}dict}\PY{p}{(}\PY{n}{dataframe\PYZus{}container}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,} \PY{n}{list\PYZus{}of\PYZus{}dict}\PY{p}{[}\PY{n}{jj}\PY{p}{]}\PY{p}{)}
+                \PY{n}{carry}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{p}{(}\PY{n}{carry}\PY{o}{.}\PY{n}{index} \PY{o}{\PYZhy{}} \PY{n}{carry}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1980\PYZhy{}01\PYZhy{}01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+                
+                \PY{k}{if} \PY{n}{carry}\PY{o}{.}\PY{n}{notna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{k}{pass}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{temp}\PY{p}{[}\PY{n}{jj}\PY{p}{]} \PY{o}{=} \PY{n}{carry}
+            
+            \PY{n}{cases\PYZus{}plot\PYZus{}ready} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{ii}\PY{p}{,} \PY{n}{copy}\PY{p}{(}\PY{n}{temp}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \section{3.- Plots}\label{plots}
+
+Nesta parte, plotamos apenas alguns casos específicos, os outros não
+serão plotados porque são coleções de dados orientadas para a mineração
+de dados, tendo muitos problemas em sua composição (não no mesmo
+intervalo de tempo, etc.).
+
+Em cada paciente, utilizou-se uma técnica de visualização diferente,
+onde se mostram diferentes comportamentos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{sanitaze\PYZus{}df}\PY{p}{(}\PY{n}{df\PYZus{}insuline}\PY{p}{)}\PY{p}{:}
+             \PY{n}{alt} \PY{o}{=} \PY{n}{df\PYZus{}insuline}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{alt} \PY{o}{=} \PY{n}{alt}\PY{p}{[}\PY{n}{alt}\PY{o}{.}\PY{n}{notna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{return} \PY{n}{alt}\PY{p}{[}\PY{n}{alt}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{alt}\PY{o}{.}\PY{n}{notna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsection{3.1.- Paciente 1}\label{paciente-1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df} \PY{o}{=} \PY{n}{sanitaze\PYZus{}df}\PY{p}{(}\PY{n}{cases\PYZus{}plot\PYZus{}ready}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ref\PYZus{}idx\PYZus{}coll} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{ref\PYZus{}idx\PYZus{}mean} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{week} \PY{o+ow}{in}  \PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{week}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ref\PYZus{}new\PYZus{}idx} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{week} \PY{o}{==} \PY{n}{week}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{date}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ref\PYZus{}mean} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{week} \PY{o}{==} \PY{n}{week}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+             
+             \PY{n}{ref\PYZus{}idx\PYZus{}coll} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{ref\PYZus{}new\PYZus{}idx}\PY{p}{]}
+             \PY{n}{ref\PYZus{}idx\PYZus{}mean} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{ref\PYZus{}mean}\PY{p}{]}
+         
+         \PY{n}{mean\PYZus{}by\PYZus{}week} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ref\PYZus{}idx\PYZus{}mean}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         \PY{n}{mean\PYZus{}by\PYZus{}week}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{ref\PYZus{}idx\PYZus{}coll}
+         \PY{n}{mean\PYZus{}by\PYZus{}week}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{mean\PYZus{}by\PYZus{}week}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         
+         \PY{n}{mean\PYZus{}by\PYZus{}week}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean Weekly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+    Essa visualização representa a quantidade média de insulina ingerida por
+semana, onde a Insulina Regular representa uma insulina "normal", a mais
+próxima em composição com a insulina humana, e a insulina NPH é um tipo
+de insulina que trabalha mais tempo, sendo em combinação com a insulina
+regular uma opção de emergência quando uma crise diabética é percebida
+
+Pode ser visto no gráfico, que o paciente sofreu (talvez) dois pré-crise
+durante o registro de 14 semanas, onde o último pode ser considerado uma
+"pequena" crise
+
+    \subsection{3.2.- Paciente 31}\label{paciente-31}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{cf}\PY{o}{.}\PY{n}{set\PYZus{}config\PYZus{}file}\PY{p}{(}\PY{n}{offline}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{world\PYZus{}readable}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{theme}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{sanitaze\PYZus{}df}\PY{p}{(}\PY{n}{cases\PYZus{}plot\PYZus{}ready}\PY{p}{[}\PY{l+m+mi}{24}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{shared\PYZus{}xaxes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+    \subsection{3.3.- Paciente 33}\label{paciente-33}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df} \PY{o}{=} \PY{n}{sanitaze\PYZus{}df}\PY{p}{(}\PY{n}{cases\PYZus{}plot\PYZus{}ready}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{total\PYZus{}at} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{alt\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{n}{total\PYZus{}at}\PY{p}{,} \PY{n}{total\PYZus{}at}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cumulative Mean Regualar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cumulative Mean NPH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{col\PYZus{}name} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]}
+             
+             \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scaled [0\PYZhy{}1]}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{col\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{temp} \PY{o}{\PYZhy{}} \PY{n}{temp}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{temp}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{temp}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+         
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{p}{[}\PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{col}
+         \PY{p}{\PYZcb{}}  \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{]}\PY{p}{,} \PY{n}{xTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+    \subsection{3.4.- Paciente 38}\label{paciente-38}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df} \PY{o}{=} \PY{n}{sanitaze\PYZus{}df}\PY{p}{(}\PY{n}{cases\PYZus{}plot\PYZus{}ready}\PY{p}{[}\PY{l+m+mi}{31}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{total\PYZus{}at} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{alt\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{n}{total\PYZus{}at}\PY{p}{,} \PY{n}{total\PYZus{}at}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cumulative Mean Regualar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cumulative Mean NPH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{col\PYZus{}name} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]}
+             \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scaled [0\PYZhy{}1]}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{col\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{n}{temp} \PY{o}{\PYZhy{}} \PY{n}{temp}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{temp}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{temp}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+             
+         \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index}
+         \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{total\PYZus{}at}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{n}{to\PYZus{}grads} \PY{o}{=} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index}
+         \PY{n}{to\PYZus{}grads} \PY{o}{=} \PY{p}{(}\PY{n}{to\PYZus{}grads} \PY{o}{\PYZhy{}} \PY{n}{to\PYZus{}grads}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{to\PYZus{}grads}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{to\PYZus{}grads}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{to\PYZus{}grads} \PY{o}{*}\PY{o}{=} \PY{l+m+mi}{360}
+         
+         \PY{n}{to\PYZus{}grads} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{to\PYZus{}grads}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{to\PYZus{}grads}
+         
+         \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+             \PY{n}{current\PYZus{}data} \PY{o}{=} \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{data} \PY{o}{+}\PY{o}{=} \PY{p}{[}
+                 \PY{n}{go}\PY{o}{.}\PY{n}{Scatterpolar}\PY{p}{(}
+                 \PY{n}{r} \PY{o}{=} \PY{n}{current\PYZus{}data}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{theta} \PY{o}{=} \PY{n}{to\PYZus{}grads}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{current\PYZus{}data}\PY{o}{.}\PY{n}{index} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{grad}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{name}\PY{o}{=}\PY{n}{column}
+             \PY{p}{)}
+                     \PY{p}{]}
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+             \PY{n}{showlegend} \PY{o}{=} \PY{k+kc}{True}
+         \PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+    \subsection{3.5.- Paciente 41 e Paciente
+52}\label{paciente-41-e-paciente-52}
+
+\subsubsection{3.5.1.- Paciente 41}\label{paciente-41}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{df} \PY{o}{=} \PY{n}{sanitaze\PYZus{}df}\PY{p}{(}\PY{n}{cases\PYZus{}plot\PYZus{}ready}\PY{p}{[}\PY{l+m+mi}{34}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{alt\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{col\PYZus{}name} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]}
+             \PY{k}{if} \PY{n}{temp}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mf}{0.0}\PY{p}{:}
+                 \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{temp} \PY{o}{*} \PY{l+m+mf}{0.0}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{temp} \PY{o}{\PYZhy{}} \PY{n}{temp}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{temp}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+                 
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{p}{[}\PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{col}
+         \PY{p}{\PYZcb{}}  \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{]}\PY{p}{,} \PY{n}{xTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Fourier}
+         
+         \PY{n}{fourier\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{col\PYZus{}name} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{fourier} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+             \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Fourier Real}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+             \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Fourier Real}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fourier}\PY{o}{.}\PY{n}{real}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{fourier}\PY{o}{.}\PY{n}{real}
+             
+             \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Fourier Imag}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+             \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Fourier Imag}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fourier}\PY{o}{.}\PY{n}{imag}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{fourier}\PY{o}{.}\PY{n}{imag}
+         
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{p}{[}\PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{fourier\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{col}
+         \PY{p}{\PYZcb{}}  \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{fourier\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{]}\PY{p}{,} \PY{n}{xTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+    \subsubsection{3.5.2.- Paciente 52}\label{paciente-52}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df} \PY{o}{=} \PY{n}{sanitaze\PYZus{}df}\PY{p}{(}\PY{n}{cases\PYZus{}plot\PYZus{}ready}\PY{p}{[}\PY{l+m+mi}{45}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{alt\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{col\PYZus{}name} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]}
+             \PY{k}{if} \PY{n}{temp}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mf}{0.0}\PY{p}{:}
+                 \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{temp} \PY{o}{*} \PY{l+m+mf}{0.0}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{temp} \PY{o}{\PYZhy{}} \PY{n}{temp}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{temp}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+                 
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{p}{[}\PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{col}
+         \PY{p}{\PYZcb{}}  \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{]}\PY{p}{,} \PY{n}{xTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Fourier}
+         
+         \PY{n}{fourier\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{alt\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{col\PYZus{}name} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{fourier} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{alt\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+             \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Fourier Real}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+             \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Fourier Real}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fourier}\PY{o}{.}\PY{n}{real}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{fourier}\PY{o}{.}\PY{n}{real}
+             
+             \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Fourier Imag}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+             \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col\PYZus{}name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Fourier Imag}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fourier}\PY{o}{.}\PY{n}{imag}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{fourier}\PY{o}{.}\PY{n}{imag}
+         
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{p}{[}\PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{fourier\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{fourier\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{col}
+         \PY{p}{\PYZcb{}}  \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{fourier\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{]}\PY{p}{,} \PY{n}{xTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yTitle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
